@@ -101,6 +101,11 @@ class Country:
         return self.maybe_escape(self.countries.name(self.code))
 
     @property
+    def currency(self):
+        from django_countries.data import CURRENCY
+        return CURRENCY.get(self.code, " " )
+
+    @property
     def alpha3(self):
         return self.countries.alpha3(self.code)
 
