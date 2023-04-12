@@ -2,6 +2,7 @@ from django.utils.encoding import force_str
 from rest_framework import serializers
 
 from django_countries import countries
+from data import CURRENCY
 
 
 class CountryField(serializers.ChoiceField):
@@ -20,7 +21,7 @@ class CountryField(serializers.ChoiceField):
             return force_str(self.countries.name(obj))
         if not self.country_dict:
             return code
-        return {"code": code, "name": force_str(self.countries.name(obj))}
+        return {"code": code, "name": force_str(self.countries.name(obj)), "currency": force_str(CURRENCY[code])}
 
     def to_internal_value(self, data):
         if not self.allow_blank and data == "":
