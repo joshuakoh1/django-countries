@@ -6,10 +6,142 @@ This log shows interesting changes that happen for each version, latest
 versions first. It can be assumed that translations have been updated each
 release, and any new translations added.
 
-6.2 (unreleased)
+7.6 (unreleased)
 ================
 
-- Nothing changed yet.
+- Replace deprecated ``pkg_resources.iter_entry_points`` with
+  ``importlib_metadata``.
+
+
+7.5.1 (1 February 2023)
+=======================
+
+- Make ``CountryField`` queryset filters also work with country codes in
+  addition to names.
+
+- Switch to ``pyproject.toml`` rather than ``setup.py`` to fix installation
+  issues with pip 23.0+.
+
+
+7.5 (12 December 2022)
+======================
+
+- Rename Turkey to Türkiye.
+
+- A change in v7.4 introduced multi-choice countries being stored sorted and
+  deduplicated. This remains the default behaviour going forwards, but these
+  can now be overridden via arguments on the ``CountryField``.
+
+- Improve translation fallback handling, fixing a threading race condition that
+  could cause odd translation issues. Thanks to Jan Wróblewski and Antoine
+  Fontaine for their help in resolving this.
+  This also fixes translation issues with older Python 3.6/3.7 versions.
+
+- Add Python 3.11, drop Python 3.6 and Django 2.2 support.
+
+
+7.4.2 (10 October 2022)
+=======================
+
+- Fix error when using ``USE_I18N = False``.
+
+
+7.4.1 (7 October 2022)
+======================
+
+- Fix broken translations due to last common country names fix.
+
+
+7.4 (7 October 2022)
+====================
+
+- Fixed Traditional Chinese translation (needed to be ``locale/zh_Hant``).
+
+- Update flag of Honduras.
+
+- Add Django 4.0 and 4.1 to the test matrix, dropping 3.0 and 3.1
+
+- Add Django Rest Framework 3.13 and 3.14, dropping 3.11.
+
+- Multi-choice countries are now stored sorted and with duplicates stripped.
+  Thanks flbraun and Jens Diemer!
+
+- Fix common country names not being honoured in non-English translations (only
+  fixed for Python 3.8+).
+
+
+7.3.2 (4 March 2022)
+====================
+
+- Fix slowdown introduced in v7.3 caused by always using country name lookups
+  for field comparisons. ``filter(country="New Zealand")`` will no longer match
+  now, but instead new ``__name`` and ``__iname`` filters have been added to
+  achieve this.
+
+
+7.3.1 (1 March 2022)
+====================
+
+- Typing compatibility fixes for Python <3.9.
+
+
+7.3 (28 February 2022)
+======================
+
+- Make full English country names work in database lookups, for example,
+  ``Person.objects.filter(country__icontains="zealand")``.
+
+
+7.2.1 (11 May 2021)
+===================
+
+- Fix Latin translations.
+
+
+7.2 (10 May 2021)
+=================
+
+- Allow the character field to work with custom country codes that are not 2
+  characters (such as "GB-WLS").
+
+- Fix compatibility with ``django-migrations-ignore-attrs`` library.
+
+
+7.1 (17 March 2021)
+===================
+
+- Allow customising the ``str_attr`` of Country objects returned from a
+  CountryField via a new ``countries_str_attr`` keyword argument (thanks C.
+  Quentin).
+
+- Add ``pyuca`` as an extra dependency, so that it can be installed like
+  ``pip install django-countries[pyuca]``.
+
+- Add Django 3.2 support.
+
+
+7.0 (5 December 2020)
+=====================
+
+- Add ``name_only`` as an option to the Django Rest Framework serializer field
+  (thanks Miguel Marques).
+
+- Add in Python typing.
+
+- Add Python 3.9, Django 3.1, and Django Rest Framework 3.12 support.
+
+- Drop Python 3.5 support.
+
+- Improve IOC code functionality, allowing them to be overridden in
+  ``COUNTRIES_OVERRIDE`` using the complex dictionary format.
+
+
+6.1.3 (18 August 2020)
+======================
+
+- Update flag of Mauritania.
+
+- Add flag for Kosovo (under its temporary code of XK).
 
 
 6.1.2 (26 March 2020)
